@@ -1,0 +1,12 @@
+server:
+  port: 8081
+
+keycloak:
+  url: http://192.168.81.64:8080
+  realm: demo
+  resource_access: realm_access
+
+management:
+  metrics:
+    tags:
+      application: movies-backend

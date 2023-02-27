@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: dev
+  security:
+    ignored: "/actuator/**"
+
+keycloak:
+  jwk: ${keycloak.url}/auth/realms/${keycloak.realm}/protocol/openid-connect/certs
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+      zalando:
+        logbook: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
