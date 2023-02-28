@@ -28,7 +28,7 @@ public class MovieController {
 
     @GetMapping("/movies")
     @AllowedRoles("ADMIN")
-    @AllowedAudiences("SON")
+    @AllowedAudiences("kafka")
     public List<Movie> getAllMovies(){
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.getAuthentication().getAuthorities().forEach(b -> log.info(b.toString()));
@@ -37,8 +37,9 @@ public class MovieController {
 
     @GetMapping("/movies/{id}")
     @AllowedRoles("VISITOR")
-    @AllowedAudiences("SON")
-    public Movie getMovieById(@PathVariable("id") String id){
+    @AllowedAudiences("kafka1")
+    public Movie getMovieById(@PathVariable("id") String id) {
+        System.out.println("Vu Nam Son");
         return movies.get(Long.valueOf(id));
     }
 }

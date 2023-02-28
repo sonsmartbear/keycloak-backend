@@ -25,11 +25,7 @@ public class RolesAspect {
     @Before("@annotation(com.eviware.keycloak.backend.infra.security.annotation.AllowedRoles)")
     public void before(JoinPoint joinPoint) {
 
-        String[] expectedRoles = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(AllowedAudiences.class).value();
-        JwtAuthentication jwtAuthentication = (JwtAuthentication)SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(jwtAuthentication.getAudiences());
-
-
+        String[] expectedRoles = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(AllowedRoles.class).value();
         Collection<? extends GrantedAuthority> grantedAuthorities =
                 Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                         .map(Authentication::getAuthorities)

@@ -19,14 +19,13 @@ import java.util.List;
 @Component
 public class AudiencesAspect {
 
-    @Before("@annotation(com.eviware.keycloak.backend.infra.security.annotation.AllowedRoles)")
+    @Before("@annotation(com.eviware.keycloak.backend.infra.security.annotation.AllowedAudiences)")
     public void before(JoinPoint joinPoint) {
 
-        String[] expectedAud = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(AllowedRoles.class).value();
-
+        String[] expectedAud = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(AllowedAudiences.class).value();
         CustomAuthenticationToken customAuthenticationToken = ((CustomAuthenticationToken) SecurityContextHolder.getContext().getAuthentication());
-
         List<String> audiences = customAuthenticationToken.getAccessToken().getAudiences();
+        System.out.println(audiences);
         if (!audiences.containsAll(Arrays.asList(expectedAud))) {
             throw new AccessDeniedException(String.format("Unauthorized request. Expected to have %s audiences, but have %s", Arrays.asList(expectedAud), audiences));
         }
